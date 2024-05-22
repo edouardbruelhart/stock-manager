@@ -1,3 +1,6 @@
+# Path reminder for user data folder
+stock_manager/user_data.json
+
 docs/source
 
 # From https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore
