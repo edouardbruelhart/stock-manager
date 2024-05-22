@@ -8,6 +8,6 @@ A little python software to manage brewery grain and hope stocks
 
 - **Github repository**: <https://github.com/edouardbruelhart/stock-manager/>
 
-* Version Française
+## Version Française
 
-* English Version
+## English Version
