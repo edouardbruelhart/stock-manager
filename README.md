@@ -6,7 +6,6 @@
 
 - **Github repository**: <https://github.com/edouardbruelhart/stock-manager/>
 
-````markdown
 ## Version Française
 
 Un petit logiciel de gestion de stock pour brasserie codé en python
@@ -27,6 +26,7 @@ Le logiciel génère des fichiers CSV dans le dossier sélectionné. Cela permet
   ```bash
   sudo chmod +x stock_manager
   ```
+
 ````
 
 Il sera ensuite exécutable. Si vous voulez l'exécuter par ligne de commande, vous pouvez simplement le déplacer dans un dossier du PATH (par exemple `/usr/local/bin`). Il vous suffira ensuite de taper :
@@ -119,3 +119,4 @@ The software generates CSV files in the selected folder. This allows, for exampl
 ```
 
 ```
+````
