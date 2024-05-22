@@ -74,8 +74,8 @@ The software generates CSV files in the selected folder. This allows, for exampl
 
 ### How to use:
 
-- **Windows:** Simply download the `stock_manager.exe` file from the "releases" tab and run it.
-- **Linux:** Download the `stock_manager` file from the "releases" tab, then add execution rights:
+- **Windows:** Simply download the `stock_manager.exe` file from the `Releases` tab and run it.
+- **Linux:** Download the `stock_manager` file from the `Releases` tab, then add execution rights:
 
   ```bash
   sudo chmod +x stock_manager
@@ -113,11 +113,3 @@ The software generates CSV files in the selected folder. This allows, for exampl
   ```bash
   pipx install poetry
   ```
-
-```
-
-```
-
-```
-
-```
