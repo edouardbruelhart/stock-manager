@@ -214,7 +214,7 @@ class addBeer:
 
         self.text_entries = {}  # Dictionary to store references to text entry widgets
 
-        for _, row in enumerate(self.df_recettes.iterrows()):
+        for _, (_, row) in enumerate(self.df_recettes.iterrows()):
             frame = tk.Frame(self.add)
             frame.pack(fill=tk.X, padx=5, pady=5)
 
@@ -400,7 +400,7 @@ class removeBeer(tk.Frame):
 
         self.text_entries = {}  # Dictionary to store references to text entry widgets
 
-        for _, row in enumerate(self.df_recettes.iterrows()):
+        for _, (_, row) in enumerate(self.df_recettes.iterrows()):
             frame = tk.Frame(self.remove)
             frame.pack(fill=tk.X, padx=5, pady=5)
 
@@ -913,7 +913,7 @@ class addRecipe:
         path_ingredient = self.data + "/ingredients.csv"
         path_recettes = self.data + "/recettes.csv"
 
-        if ingredient_type and ingredient and round:  # Check if both ingredient type and ingredient are provided
+        if ingredient_type and ingredient and rounded:  # Check if both ingredient type and ingredient are provided
             # Convert the input ingredient to lowercase for case insensitive comparison
             ingredient = ingredient.lower()
             self.ingredient.set("")
