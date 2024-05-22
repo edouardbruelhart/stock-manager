@@ -44,11 +44,10 @@ class HomeWindow(tk.Frame):
             self, text="Entrer une nouvelle recette", width=30, command=self.launch_add_recipe
         )
 
-        # Define the path for your JSON file
+        # Define the path for user data
         app_name = "stock_manager"
         config_dir = appdirs.user_config_dir(app_name)
         os.makedirs(config_dir, exist_ok=True)
-
         self.json_path = os.path.join(config_dir, "user_data.json")
 
         try:
@@ -206,8 +205,13 @@ class addBeer:
 
         self.add.protocol("WM_DELETE_WINDOW", self.on_exit)
 
+        # Define the path for user data
+        app_name = "stock_manager"
+        config_dir = appdirs.user_config_dir(app_name)
+        self.json_path = os.path.join(config_dir, "user_data.json")
+
         # Retrieve path to data folder
-        with open("user_data.json") as file:
+        with open(self.json_path) as file:
             self.data = json.load(file)["data_path"]
 
         # Load recipe CSV ad dataframe
@@ -392,8 +396,13 @@ class removeBeer(tk.Frame):
 
         self.remove.protocol("WM_DELETE_WINDOW", self.on_exit)
 
+        # Define the path for user data
+        app_name = "stock_manager"
+        config_dir = appdirs.user_config_dir(app_name)
+        self.json_path = os.path.join(config_dir, "user_data.json")
+
         # Retrieve path to data folder
-        with open("user_data.json") as file:
+        with open(self.json_path) as file:
             self.data = json.load(file)["data_path"]
 
         # Load recipe CSV ad dataframe
@@ -545,8 +554,14 @@ class addRecipe:
 
         self.add_recipe.protocol("WM_DELETE_WINDOW", self.on_exit)
 
+        # Define the path for user data
+        app_name = "stock_manager"
+        config_dir = appdirs.user_config_dir(app_name)
+        os.makedirs(config_dir, exist_ok=True)
+        self.json_path = os.path.join(config_dir, "user_data.json")
+
         # Retrieve path to data folder
-        with open("user_data.json") as file:
+        with open(self.json_path) as file:
             self.data = json.load(file)["data_path"]
 
         # Create variables to store user choices
