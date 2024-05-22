@@ -20,14 +20,12 @@ Le logiciel génère des fichiers CSV dans le dossier sélectionné. Cela permet
 
 ### Comment l'utiliser:
 
-- **Windows:** simplement télécharger le fichier `stock_manager.exe` dans l'onglet "releases" puis l'exécuter.
-- **Linux:** Télécharger le fichier `stock_manager` dans l'onglet "releases", puis ajouter le droit d'exécution :
+- **Windows:** simplement télécharger le fichier `stock_manager.exe` dans l'onglet `Releases` puis l'exécuter.
+- **Linux:** Télécharger le fichier `stock_manager` dans l'onglet `Releases`, puis ajouter le droit d'exécution :
 
   ```bash
   sudo chmod +x stock_manager
   ```
-
-````
 
 Il sera ensuite exécutable. Si vous voulez l'exécuter par ligne de commande, vous pouvez simplement le déplacer dans un dossier du PATH (par exemple `/usr/local/bin`). Il vous suffira ensuite de taper :
 
@@ -119,4 +117,7 @@ The software generates CSV files in the selected folder. This allows, for exampl
 ```
 
 ```
-````
+
+```
+
+```
