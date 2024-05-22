@@ -10,6 +10,7 @@ from datetime import datetime
 from tkinter import filedialog
 from typing import Any
 
+import appdirs
 import pandas as pd
 
 
@@ -43,8 +44,15 @@ class HomeWindow(tk.Frame):
             self, text="Entrer une nouvelle recette", width=30, command=self.launch_add_recipe
         )
 
+        # Define the path for your JSON file
+        app_name = "stock_manager"
+        config_dir = appdirs.user_config_dir(app_name)
+        os.makedirs(config_dir, exist_ok=True)
+
+        self.json_path = os.path.join(config_dir, "user_data.json")
+
         try:
-            with open("user_data.json") as file:
+            with open(self.json_path) as file:
                 data = json.load(file)["data_path"]
                 self.add_folder(data)
 
@@ -69,7 +77,7 @@ class HomeWindow(tk.Frame):
             self.data_path.config(text=f"dossier sélectionné: {folder}")
             self.label.config(text="Sélectionnez une action à exécuter:")
             data = {"data_path": data_folder}
-            with open("user_data.json", "w") as file:
+            with open(self.json_path, "w") as file:
                 json.dump(data, file)
             # Check if CSV files exist
             self.check_csv_files(data_folder)
