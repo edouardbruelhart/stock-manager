@@ -180,7 +180,7 @@ class HomeWindow(tk.Frame):
         """
         add_recipe = tk.Toplevel(root)
         add_recipe.title("Ajouter une recette")
-        add_recipe.minsize(600, 600)
+        add_recipe.minsize(800, 600)
         # Show the window for a new batch
         addRecipe(add_recipe, root)
 
@@ -214,9 +214,19 @@ class addBeer:
         with open(self.json_path) as file:
             self.data = json.load(file)["data_path"]
 
-        # Load recipe CSV ad dataframe
+        # Create CSV paths
         path_recettes = self.data + "/recettes.csv"
         path_ingredients = self.data + "/ingredients.csv"
+
+        # Sort data alphabetically
+        df_ingredients = pd.read_csv(path_ingredients)
+        df_ingredients_sorted = df_ingredients.sort_values(by=["type_ingredient", "ingredient"])
+        df_ingredients_sorted.to_csv(path_ingredients)
+        df_recettes = pd.read_csv(path_recettes)
+        df_recettes_sorted = df_recettes.sort_values(by="nom_biere")
+        df_recettes_sorted.to_csv(path_recettes)
+
+        # Load sorted data
         self.df_recettes = pd.read_csv(path_recettes)
         self.df_ingredients = pd.read_csv(path_ingredients)
 
@@ -242,6 +252,7 @@ class addBeer:
 
             entry = tk.Entry(frame)
             entry.pack(side=tk.RIGHT)
+            entry.insert(0, "0")  # Set default value to 0
 
             self.text_entries[beer_name] = entry  # Store entry widget with beer name as key
 
@@ -341,9 +352,6 @@ class addBeer:
                 df_command.loc[df_command["ingredient"] == ingredient, "quantite"] = quantite
                 df_command.loc[df_command["ingredient"] == ingredient, "portions"] = portion
                 quantite_libre = quantite - (row["quantite_brute"] - row["quantite_libre"])
-                print(
-                    f"quantité: {quantite}, quantité brute: {row['quantite_brute']}, quantité libre: {row['quantite_libre']}"
-                )
             else:
                 quantite_libre = row["quantite_libre"] - row["quantite_brute"]
             self.df_ingredients.loc[self.df_ingredients["ingredient"] == ingredient, "quantite_libre"] = quantite_libre
@@ -405,9 +413,19 @@ class removeBeer(tk.Frame):
         with open(self.json_path) as file:
             self.data = json.load(file)["data_path"]
 
-        # Load recipe CSV ad dataframe
+        # Create CSV paths
         path_recettes = self.data + "/recettes.csv"
         path_ingredients = self.data + "/ingredients.csv"
+
+        # Sort data alphabetically
+        df_ingredients = pd.read_csv(path_ingredients)
+        df_ingredients_sorted = df_ingredients.sort_values(by=["type_ingredient", "ingredient"])
+        df_ingredients_sorted.to_csv(path_ingredients)
+        df_recettes = pd.read_csv(path_recettes)
+        df_recettes_sorted = df_recettes.sort_values(by="nom_biere")
+        df_recettes_sorted.to_csv(path_recettes)
+
+        # Load sorted data
         self.df_recettes = pd.read_csv(path_recettes)
         self.df_ingredients = pd.read_csv(path_ingredients)
 
@@ -433,6 +451,7 @@ class removeBeer(tk.Frame):
 
             entry = tk.Entry(frame)
             entry.pack(side=tk.RIGHT)
+            entry.insert(0, "0")  # Set default value to 0
 
             self.text_entries[beer_name] = entry  # Store entry widget with beer name as key
 
@@ -599,14 +618,16 @@ class addRecipe:
         frame_add_ingredient.pack(pady=(0, 0), padx=100)
 
         ingredients = ["malt", "houblon", "levure", "autre"]
-        dropdown_ingredient = tk.OptionMenu(frame_add_ingredient, self.ingredient_type, *ingredients)
+        dropdown_ingredient = tk.OptionMenu(
+            frame_add_ingredient, self.ingredient_type, *ingredients, command=self.update_command_round_entry
+        )
         dropdown_ingredient.pack(side="left")
 
-        add_ingredient = tk.Entry(frame_add_ingredient, textvariable=self.ingredient)
-        add_ingredient.pack(side="left")
+        self.add_ingredient_entry = tk.Entry(frame_add_ingredient, textvariable=self.ingredient)
+        self.add_ingredient_entry.pack(side="left")
 
-        command_round = tk.Entry(frame_add_ingredient, textvariable=self.round)
-        command_round.pack(side="left")
+        self.command_round_entry = tk.Entry(frame_add_ingredient, textvariable=self.round)
+        self.command_round_entry.pack(side="left")
 
         self.add_ingredient_label = tk.Label(self.add_recipe, text="")
         self.add_ingredient_label.pack()
@@ -768,6 +789,15 @@ class addRecipe:
         self.add_recipe.destroy()
         self.root.deiconify()
 
+    def update_command_round_entry(self, selection: tk.StringVar) -> None:
+        # Ensure selection is a string
+        selection_str = str(selection)
+        # Set default values based on the selected ingredient type
+        default_values = {"malt": 500, "houblon": 10, "levure": 1, "autre": 0}
+        default_value = int(default_values.get(selection_str, 0))
+        self.command_round_entry.delete(0, tk.END)
+        self.command_round_entry.insert(0, str(default_value))
+
     def update_spinners(self) -> None:
         # Extract different ingredients to populate the spinners
         self.malts.clear()
@@ -920,6 +950,10 @@ class addRecipe:
                 + self.levure_name
                 + self.autre_name
             )
+            # Sort data alphabetically
+            df_recettes = pd.read_csv(path_recettes)
+            df_recettes_sorted = df_recettes.sort_values(by="nom_biere")
+            df_recettes_sorted.to_csv(path_recettes)
         else:
             self.status_write.config(text="Aucune recette définie!", foreground="red")
 
@@ -976,6 +1010,12 @@ class addRecipe:
 
             # Inform the user that the ingredient has been added
             self.add_ingredient_label.config(text="Ingrédient correctement ajouté!", foreground="black")
+
+            # Sort data alphabetically
+            df_ingredients = pd.read_csv(path_ingredient)
+            df_ingredients_sorted = df_ingredients.sort_values(by=["type_ingredient", "ingredient"])
+            df_ingredients_sorted.to_csv(path_ingredient)
+
         else:
             # If ingredient type or ingredient is empty, inform the user to enter correct values
             self.add_ingredient_label.config(
