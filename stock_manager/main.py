@@ -221,10 +221,10 @@ class addBeer:
         # Sort data alphabetically
         df_ingredients = pd.read_csv(path_ingredients)
         df_ingredients_sorted = df_ingredients.sort_values(by=["type_ingredient", "ingredient"])
-        df_ingredients_sorted.to_csv(path_ingredients)
+        df_ingredients_sorted.to_csv(path_ingredients, index=False)
         df_recettes = pd.read_csv(path_recettes)
         df_recettes_sorted = df_recettes.sort_values(by="nom_biere")
-        df_recettes_sorted.to_csv(path_recettes)
+        df_recettes_sorted.to_csv(path_recettes, index=False)
 
         # Load sorted data
         self.df_recettes = pd.read_csv(path_recettes)
@@ -420,10 +420,10 @@ class removeBeer(tk.Frame):
         # Sort data alphabetically
         df_ingredients = pd.read_csv(path_ingredients)
         df_ingredients_sorted = df_ingredients.sort_values(by=["type_ingredient", "ingredient"])
-        df_ingredients_sorted.to_csv(path_ingredients)
+        df_ingredients_sorted.to_csv(path_ingredients, index=False)
         df_recettes = pd.read_csv(path_recettes)
         df_recettes_sorted = df_recettes.sort_values(by="nom_biere")
-        df_recettes_sorted.to_csv(path_recettes)
+        df_recettes_sorted.to_csv(path_recettes, index=False)
 
         # Load sorted data
         self.df_recettes = pd.read_csv(path_recettes)
@@ -953,7 +953,7 @@ class addRecipe:
             # Sort data alphabetically
             df_recettes = pd.read_csv(path_recettes)
             df_recettes_sorted = df_recettes.sort_values(by="nom_biere")
-            df_recettes_sorted.to_csv(path_recettes)
+            df_recettes_sorted.to_csv(path_recettes, index=False)
         else:
             self.status_write.config(text="Aucune recette définie!", foreground="red")
 
@@ -1014,7 +1014,7 @@ class addRecipe:
             # Sort data alphabetically
             df_ingredients = pd.read_csv(path_ingredient)
             df_ingredients_sorted = df_ingredients.sort_values(by=["type_ingredient", "ingredient"])
-            df_ingredients_sorted.to_csv(path_ingredient)
+            df_ingredients_sorted.to_csv(path_ingredient, index=False)
 
         else:
             # If ingredient type or ingredient is empty, inform the user to enter correct values
